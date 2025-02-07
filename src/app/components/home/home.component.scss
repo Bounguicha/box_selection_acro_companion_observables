@@ -1,0 +1,26 @@
+
+app-clickable-element {
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+  margin: 5px; /* Optional: Add some spacing between boxes */
+}
+
+.ninety-width {
+  width: 90%;
+}
+
+.ten-width {
+  width: 10%;
+}
+
+/* Styles for spacing */
+.with-gap {
+  gap: 10px;
+}
+
+.margin-10 {
+  margin: 10px;
+}
+
+.small-text {
+  font-size: 8px;
+}

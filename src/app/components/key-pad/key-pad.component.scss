@@ -1,0 +1,22 @@
+.category-container {
+  border: 2px solid black;
+  padding: 20px;
+  width: 28%;
+}
+
+.category-title {
+  padding: 10px;
+  font-weight: bold;
+}
+
+.button-item {
+  margin: 2px;
+}
+
+.active-button {
+  background-color: red;
+}
+
+.inactive-button {
+  background-color: green;
+}

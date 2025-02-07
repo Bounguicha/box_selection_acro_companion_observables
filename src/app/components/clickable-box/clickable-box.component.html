@@ -1,0 +1,19 @@
+<div
+  (click)="onElementClick()"
+  [ngClass]="{'filled': selectedIndex === this.index}"
+  class="container flex flex-column justify-center align-center"
+>
+  <div class="content flex flex-column justify-center align-center">
+    @if (value) {
+      <span class="value">{{ value }}</span>
+    } @else {
+      <span class="placeholder"> Select element</span>
+    }
+  </div>
+
+  @if (key > 0) {
+    <div class="key-container flex flex-column align-start">
+      <span class="key">{{ key }}</span>
+    </div>
+  }
+</div>
