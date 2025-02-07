@@ -20,10 +20,7 @@ export class ClickableBoxComponent implements OnInit, OnDestroy {
   // Holds the selected box index
   selectedIndex: number | null = null;
 
-  // The value of the clickable element
   public value: string = '';
-
-  // The key associated with the clickable element
   public key: number = 0;
 
   private destroy$ = new Subject<void>();
@@ -55,7 +52,6 @@ export class ClickableBoxComponent implements OnInit, OnDestroy {
    * and the currently selected box index. Merges these updates into a single stream
    * and handles them accordingly.
    */
-
   private subscribeToBoxUpdates(): void {
     const boxUpdates$ = this.dataService
       .getBoxSubject(this.index)

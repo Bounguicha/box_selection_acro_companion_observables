@@ -21,17 +21,14 @@ export class DataService {
   // Represents the list of boxes.
   private _boxList = Array(10);
 
-  // Provides access to the list of boxes.
   get boxes(): Array<Object> {
     return this._boxList;
   }
 
-  // Provides access to the map holding box values and sums.
   get boxValuesSumMap(): Map<number, KeyButton> {
     return this._boxSums;
   }
 
-  // Provides access to the map holding subjects for each box.
   get boxSubjects(): Map<number, Subject<KeyButton>> {
     return this._boxSubjects;
   }

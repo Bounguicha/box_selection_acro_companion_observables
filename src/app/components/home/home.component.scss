@@ -1,7 +1,7 @@
 
 app-clickable-element {
-  box-sizing: border-box; /* Include padding and border in the element's total width */
-  margin: 5px; /* Optional: Add some spacing between boxes */
+  box-sizing: border-box;
+  margin: 5px;
 }
 
 .ninety-width {
@@ -12,7 +12,6 @@ app-clickable-element {
   width: 10%;
 }
 
-/* Styles for spacing */
 .with-gap {
   gap: 10px;
 }
