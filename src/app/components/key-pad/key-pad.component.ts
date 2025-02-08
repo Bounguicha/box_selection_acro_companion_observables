@@ -9,13 +9,12 @@ import { BUTTON_CATEGORIES_MAP } from '../../constants/button-config';
 import { BUTTON_CATEGORIES } from '../../enums/enums';
 import { MatButton } from '@angular/material/button';
 import { DataService } from '../../services/data.service';
-import { NgStyle } from '@angular/common';
 import { KeyButton } from '../../interfaces/key-button';
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-key-pad',
-  imports: [MatButton, NgStyle],
+  imports: [MatButton],
   templateUrl: './key-pad.component.html',
   standalone: true,
   styleUrls: ['./key-pad.component.scss'],

@@ -1,5 +1,4 @@
 import { Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
-import { NgClass } from '@angular/common';
 import { DataService } from '../../services/data.service';
 import {merge, Subject, takeUntil} from 'rxjs';
 import {KeyButton} from "../../interfaces/key-button";
@@ -8,7 +7,6 @@ import {KeyButton} from "../../interfaces/key-button";
   selector: 'app-clickable-box',
   standalone: true,
   templateUrl: './clickable-box.component.html',
-  imports: [NgClass],
   styleUrl: './clickable-box.component.scss',
 
 })
