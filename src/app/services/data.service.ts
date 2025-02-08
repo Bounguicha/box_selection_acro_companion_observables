@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, map, Observable, Subject} from 'rxjs';
 import {BUTTON_CATEGORIES_MAP} from '../constants/button-config';
 
 @Injectable({
@@ -18,6 +18,14 @@ export class DataService {
 
   // Observable map to manage key-button sums for boxes.
   private _boxSums$ = new BehaviorSubject<Map<number, number>>(new Map());
+  public boxSums$: Observable<Map<number, number>> = this._boxSums$.asObservable();
+
+  public totalSum$: Observable<number> = this.boxSums$.pipe(
+    map((boxValues) =>
+      Array.from(boxValues.values()).reduce((sum, value) => sum + value, 0)
+    )
+  );
+
 
   // Stores key-button values associated with each box.
 
