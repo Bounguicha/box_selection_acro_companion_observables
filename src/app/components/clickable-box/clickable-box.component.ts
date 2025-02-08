@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import { DataService } from '../../services/data.service';
-import {merge, Subject, takeUntil} from 'rxjs';
+import {map, merge, Subject, takeUntil} from 'rxjs';
 import {KeyButton} from "../../interfaces/key-button";
 
 @Component({
@@ -52,19 +52,20 @@ export class ClickableBoxComponent implements OnInit, OnDestroy {
    */
   private subscribeToBoxUpdates(): void {
     const boxUpdates$ = this.dataService
-      .getBoxSubject(this.index)
+      .getBoxSubject(this.index).pipe(map((value) => ({ source: 'box', value })))
       .pipe(takeUntil(this.destroy$));
 
-    const selectedIndexUpdates$ = this.dataService.selectedBoxIndex$.pipe(
-      takeUntil(this.destroy$)
+    const selectedIndexUpdates$ = this.dataService.selectedBoxIndex$
+      .pipe(map((value) => ({ source: 'index', value })))
+      .pipe(takeUntil(this.destroy$)
     );
 
     merge(boxUpdates$, selectedIndexUpdates$).subscribe({
-      next: (update: number | KeyButton | null) => {
-        if (typeof update === 'object') {
-          this.handleBoxValueUpdate(update!); // Update key-value pair
+      next: (update) => {
+        if (update.source === 'box') {
+          this.handleBoxValueUpdate(update.value ?? 0); // Update key-value pair
         } else {
-          this.selectedIndex = update as number; // Update selected index
+          this.selectedIndex = update.value; // Update selected index
         }
       },
     });
@@ -74,8 +75,8 @@ export class ClickableBoxComponent implements OnInit, OnDestroy {
    * Updates the key and value properties based on the incoming box values
    * @param boxValue - Array containing key-value pair (number, string)
    */
-  private handleBoxValueUpdate(boxValue: KeyButton): void {
-    this.value = boxValue?.output;
-    this.key = boxValue?.key;
+  private handleBoxValueUpdate(boxValue: number): void {
+      this.key = boxValue;
+
   }
 }

@@ -36,14 +36,14 @@ export class HomeComponent implements AfterViewInit {
    * Loads previously stored box data from `localStorage` and updates the data service with the values.
    */
   ngAfterViewInit(): void {
-    const storedBoxValues: Array<Array<number | KeyButton>> = JSON.parse(
+    const storedBoxValues: Array<Array<number>> = JSON.parse(
       localStorage.getItem('boxData')!
     );
 
     storedBoxValues?.forEach((value) => {
       this.dataService.updateBoxValue(
-        value[0] as number,
-        value[1] as KeyButton
+        value[0],
+        value[1]
       );
       this.cdr.detectChanges(); // Updates the component tree
     });
@@ -56,14 +56,5 @@ export class HomeComponent implements AfterViewInit {
     this.dataService.clearBoxValues(); // Clears all stored box data
   }
 
-  /**
-   * Computes the sum of all key values associated with stored boxes.
-   * @returns Total sum of box key values.
-   */
-  public calculateTotalSum(): number {
-    return [...this.dataService.boxValuesSumMap.values()].reduce(
-      (acc, value) => acc + value.key,
-      0
-    );
-  }
+
 }

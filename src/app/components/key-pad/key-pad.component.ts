@@ -48,7 +48,7 @@ export class KeyPadComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe((index) => {
       this.index = index!;
-      this.clickedButton = this.dataService.boxValuesSumMap.get(this.index)?.key ?? 0;
+      this.clickedButton = this.dataService.boxValuesSumMap.get(this.index) ?? 0;
       this.cdr.markForCheck(); // Ensures the component is updated
     });
   }
@@ -62,7 +62,7 @@ export class KeyPadComponent implements OnInit, OnDestroy {
    * Handles button click events. Updates the box value and moves to the next box.
    * @param keyButton - Represents details of the clicked button.
    */
-  onButtonClick(keyButton: KeyButton): void {
+  onButtonClick(keyButton: number): void {
     this.dataService.updateBoxValue(this.index, keyButton); // Update the box value
     this.dataService.selectBox(this.index + 1); // Proceed to the next box
   }

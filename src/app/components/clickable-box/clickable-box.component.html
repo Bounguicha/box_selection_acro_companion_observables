@@ -4,8 +4,8 @@
   class="container flex flex-column justify-center align-center"
 >
   <div class="content flex flex-column justify-center align-center">
-    @if (value) {
-      <span class="value">{{ value }}</span>
+    @if (dataService.getButtonOutputByKey(key)) {
+      <span class="value">{{ dataService.getButtonOutputByKey(key) }}</span>
     } @else {
       <span class="placeholder"> Select element</span>
     }
