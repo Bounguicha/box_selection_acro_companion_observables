@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { KeyButton } from '../interfaces/key-button';
 import {BUTTON_CATEGORIES_MAP} from '../constants/button-config';
 
 @Injectable({

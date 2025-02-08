@@ -10,7 +10,6 @@ import { KeyPadComponent } from '../key-pad/key-pad.component';
 import { ClickableBoxComponent } from '../clickable-box/clickable-box.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatMiniFabButton } from '@angular/material/button';
-import { KeyButton } from '../../interfaces/key-button';
 import { AsyncPipe } from '@angular/common';
 
 @Component({

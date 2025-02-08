@@ -1,7 +1,6 @@
 import { Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import { DataService } from '../../services/data.service';
 import {map, merge, Subject, takeUntil} from 'rxjs';
-import {KeyButton} from "../../interfaces/key-button";
 
 @Component({
   selector: 'app-clickable-box',
