@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {BUTTON_CATEGORIES_MAP} from '../constants/button-config';
 
 @Injectable({
@@ -15,8 +15,11 @@ export class DataService {
   // Tracks box-specific subjects to handle updates for each box.
   private _boxSubjects = new Map<number, Subject<number>>();
 
+
+  // Observable map to manage key-button sums for boxes.
+  private _boxSums$ = new BehaviorSubject<Map<number, number>>(new Map());
+
   // Stores key-button values associated with each box.
-  private _boxSums = new Map<number, number>();
 
   // Represents the list of boxes.
   private _boxList = Array(10).fill(null);
@@ -26,8 +29,10 @@ export class DataService {
   }
 
   get boxValuesSumMap(): Map<number, number> {
-    return this._boxSums;
+    return this._boxSums$.getValue(); // Access the current value of the BehaviorSubject
   }
+
+
 
   /**
    * Retrieves the output value for a given key.
@@ -99,9 +104,12 @@ export class DataService {
 
     // Updates the storage for box values and persists the state to `localStorage`.
     if (keyButton) {
-      this._boxSums.set(index, keyButton);
-      const serializedData = JSON.stringify(Array.from(this._boxSums.entries()));
+      const updatedBoxSums = this._boxSums$.getValue();
+      updatedBoxSums.set(index, keyButton);
+      this._boxSums$.next(new Map(updatedBoxSums)); // Emit updated map
+      const serializedData = JSON.stringify(Array.from(updatedBoxSums.entries()));
       localStorage.setItem('boxData', serializedData);
+
     }
   }
 
@@ -111,7 +119,7 @@ export class DataService {
   public clearBoxValues(): void {
     this.clearBoxSubjects();
     this.clearSelectedIndex();
-    this.boxValuesSumMap.clear();
+    this._boxSums$.next(new Map());
     localStorage.clear();
   }
 
@@ -120,9 +128,6 @@ export class DataService {
    * @returns Total sum of box key values.
    */
   public calculateTotalSum(): number {
-    return [...this.boxValuesSumMap.values()].reduce(
-      (acc, value) => acc + value,
-      0
-    );
+    return Array.from(this.boxValuesSumMap.values()).reduce((acc, value) => acc + value, 0);
   }
 }
