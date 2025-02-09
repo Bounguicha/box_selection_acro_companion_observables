@@ -52,14 +52,12 @@ export class ClickableBoxComponent implements OnInit, OnDestroy {
   private subscribeToBoxUpdates(): void {
     const boxUpdates$ = this.dataService
       .getBoxSubject(this.index).pipe(map((value) => ({ source: 'box', value })))
-      .pipe(takeUntil(this.destroy$));
 
     const selectedIndexUpdates$ = this.dataService.selectedBoxIndex$
-      .pipe(map((value) => ({ source: 'index', value })))
-      .pipe(takeUntil(this.destroy$)
+      .pipe(map((value) => ({ source: 'index', value }))
     );
 
-    merge(boxUpdates$, selectedIndexUpdates$).subscribe({
+    merge(boxUpdates$, selectedIndexUpdates$).pipe(takeUntil(this.destroy$)).subscribe({
       next: (update) => {
         if (update.source === 'box') {
           this.handleBoxValueUpdate(update.value ?? 0); // Update key-value pair
