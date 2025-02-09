@@ -63,6 +63,7 @@ export class KeyPadComponent implements OnInit, OnDestroy {
    * @param keyButton - Represents details of the clicked button.
    */
   onButtonClick(keyButton: number): void {
+    this.clickedButton = keyButton;
     this.dataService.updateBoxValue(this.index, keyButton); // Update the box value
     this.dataService.selectBox(this.index + 1); // Proceed to the next box
   }
